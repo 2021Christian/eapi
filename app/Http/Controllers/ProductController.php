@@ -7,9 +7,17 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -39,7 +47,17 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $Product = new Product();
+        $Product->name = $request->name;
+        $Product->detail = $request->description;
+        $Product->price = $request->price;
+        $Product->stock = $request->stock;
+        $Product->discount = $request->discount;
+        $Product->save();
+
+        return response([
+            'data' => new ProductResource($Product)
+        ], Response::HTTP_CREATED);
     }
 
     /**
