@@ -34,11 +34,17 @@ return [
     | Supported: "session"
     |
     */
+    // agrego la auth para la api
 
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users'
         ],
     ],
 
