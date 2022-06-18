@@ -109,6 +109,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        // return $product;
+        $product->delete();
+
+        // El destroy no devuelve datos por eso el null, y devuelve un 204 que es un OK sin contenido
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }
