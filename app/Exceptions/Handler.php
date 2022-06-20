@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,8 +47,22 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        /*
         $this->reportable(function (Throwable $e) {
             //
         });
+        */
+        //manejo de la excepcion cuando no existe / no encuentra el producto
+        
+        $this->renderable(function (NotFoundHttpException $e, $request) 
+        {
+            if( $request->wantsJson() )
+            {
+                return response()->json([
+                        'errors' => 'Object not found'
+                        ], Response::HTTP_NOT_FOUND);
+            }
+        });      
+            
     }
 }

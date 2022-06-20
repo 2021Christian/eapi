@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::apiResource('/products', ProductController::class);
+
 Route::group([ 'prefix'=>'products' ], function(){
     Route::apiResource('/{product}/reviews', ReviewController::class);
+});
+
+//MANEJO EL ERROR DE RUTAS QUE NO EXISTEN
+Route::fallback(function(){
+    return response()->json([
+        'errors' => 'Page Not Found. Bad Route'], Response::HTTP_NOT_FOUND);
 });
