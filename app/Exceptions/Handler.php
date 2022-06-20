@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
@@ -54,15 +55,32 @@ class Handler extends ExceptionHandler
         */
         //manejo de la excepcion cuando no existe / no encuentra el producto
         
-        $this->renderable(function (NotFoundHttpException $e, $request) 
+        $this->renderable(function (Exception $e, $request) 
         {
             if( $request->wantsJson() )
             {
-                return response()->json([
+                if ($e instanceof ModelNotFoundException){
+
+                    return response()->json([
+                        'errors' => 'Model Object not found'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+                elseif ($e instanceof RouteNotFoundException){
+
+                    return response()->json([
+                        'errors' => 'Incorrect route'
+                    ], Response::HTTP_NOT_FOUND);
+                }
+                elseif ($e instanceof NotFoundHttpException){
+
+                    return response()->json([
                         'errors' => 'Object not found'
-                        ], Response::HTTP_NOT_FOUND);
+                    ], Response::HTTP_NOT_FOUND);
+                }
+
             }
         });      
-            
+           
+        
     }
 }

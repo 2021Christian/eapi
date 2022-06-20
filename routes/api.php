@@ -28,8 +28,10 @@ Route::group([ 'prefix'=>'products' ], function(){
     Route::apiResource('/{product}/reviews', ReviewController::class);
 });
 
+/*
 //MANEJO EL ERROR DE RUTAS QUE NO EXISTEN
 Route::fallback(function(){
     return response()->json([
         'errors' => 'Page Not Found. Bad Route'], Response::HTTP_NOT_FOUND);
 });
+*/
