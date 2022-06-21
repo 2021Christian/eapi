@@ -5,8 +5,8 @@ Content-Type: application/json
 {
     "grant_type" : "password",
     "client_id" : "2",
-    "client_secret" : "QV10hLwh3xRc7CxgvpDKstG009VyzUDV6A3kzHcB",
-    "username" : "tester@gmail.com",
-    "password" : "123456"
+    "client_secret" : "bGoe3eY7CWJMOLCqgXTrtUJVNig7fxvNQymWiLji",
+    "username" : "wrosenbaum@example.com",
+    "password" : "password"
 }
 
