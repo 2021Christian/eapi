@@ -1,0 +1,10 @@
+### Leer todas las reviews
+ GET http://127.0.0.1:8000/api/products/2/reviews
+ Content-Type: application/json
+ Accept: application/application/json
+
+
+### Leer UNA Review
+ GET http://127.0.0.1:8000/api/products/2/reviews/170
+ Content-Type: application/json
+ Accept: application/application/json
